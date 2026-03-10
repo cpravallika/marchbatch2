@@ -1,4 +1,11 @@
-FROM nginx  
-COPY index.html /usr/share/nginx/html/index.html
+FROM pravallikac/pravaubuntu  
+#COPY  HelloWorld.class /usr/share/nginx/html/index.html
+WORKDIR /app
+
+# Copy compiled Java class into container
+RUN mkdir -p docker
+COPY HelloWorld.java docker/
 RUN apt update && apt install -y openjdk-11-jdk
+RUN javac docker/HelloWorld.java
+CMD ["java", "docker.HelloWorld"]
 EXPOSE 80
